@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Fraction {
 
     //instance varibles
@@ -5,11 +7,13 @@ public class Fraction {
     private int denominator;
 
     //constructors
-    public Fraction(){
-        this.numerator = 1;
-        this.denominator = 2;
+    
+    public Fraction() {
+        Random random = new Random();
+        this.numerator = random.nextInt(9) + 1;
+        this.denominator = random.nextInt(9) + 1;
     }
-
+    
     public Fraction(int n, int d) {
         this.numerator = n;
         this.setDenom(d);
@@ -48,10 +52,19 @@ public class Fraction {
         return (double) numerator/denominator;
     }
     
+    public boolean equals(Fraction f) {
+        if (f == null) {
+            return false;
+        }
+        return this.numerator == f.numerator && this.denominator == f.denominator;
+        
+    }
+    
     //mutator methods
     public void reduce() {
-        numerator = numerator / GCF(numerator, denominator);
-        denominator = denominator / GCF(numerator, denominator);
+        int g = GCF(numerator, denominator);
+        numerator /= g;
+        denominator /= g;
     }
     
     private int GCF(int a, int b){
